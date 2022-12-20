@@ -8,11 +8,15 @@ import android.util.Log
 class BackgroundService:Service() {
 
     init {
-        Log.i("MyTag","Service has been created")
+        Log.i(TAG,"Service has been created")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.i("MyTag","Service has been started")
+        Log.i(TAG,"Service has been started")
+        val name = intent?.getStringExtra(NAME)
+        val marks = intent?.getIntExtra(MARKS,0)
+        Log.i(TAG,"Name: $name , Marks: $marks")
+
         return START_STICKY
     }
 
@@ -20,7 +24,13 @@ class BackgroundService:Service() {
     override fun onBind(p0: Intent?): IBinder? = null
 
     override fun onDestroy() {
-        Log.i("MyTag","Service has been stopped")
+        Log.i(TAG,"Service has been stopped")
         super.onDestroy()
+    }
+
+    companion object{
+        const val TAG = "MyTag"
+        const val NAME = "NAME"
+        const val MARKS= "MARKS"
     }
 }
